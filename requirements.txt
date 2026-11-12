@@ -1,0 +1,9 @@
+mysql-connector-python
+opencv-python
+face-recognition
+bcrypt
+Pillow
+Flask-Mail
+Flask-Cors
+googlemaps
+geopy

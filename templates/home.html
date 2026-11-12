@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+    <link href='https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,600;1,200;1,400;1,600&display=swap' rel='stylesheet'/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-XdXwGw9P3JI6x63wxyzz0FknzrW59Y3rJ08tiIJH5Fg11P5qI3goOih3C/xup6P1W3sQ7wn5xrJxzDASjvAqeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f1; /* Pale yellow */
+            color: black /* Dark gray */
+        }
+
+        .navbar {
+            background-color: #c61919;
+            color: #fff;
+            padding: 30px;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        /* Header styles */
+        .header {
+            text-align: center;
+            padding-top: 50px;
+            color: #c61919; /* Red */
+        }
+
+        /* Key Findings styles */
+        .qhead {
+            padding: 20px;
+        }
+
+        .paragraphhead {
+            
+            color: rgb(125, 7, 7);
+            font-family: sans-serif;
+            font-size: 20px;
+        }
+
+        .paragraph {
+            font-weight: 600;
+        }
+
+        /* Graph styles */
+        .graph {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #ffcccc; /* Light red */
+            border-radius: 10px;
+        }
+
+        .graphhead {
+            color: #c0392b;; /* Red */
+        }
+
+        /* Dietary Recommendations styles */
+        .dietcards {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .cards {
+            flex: 1;
+            margin: 0 10px;
+            padding: 20px;
+            background-color: #c0392b;; /* Light red */
+            color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 7px 7px 13px 0px rgba(50, 50, 50, 0.22);
+            text-align: center;
+        }
+
+        .tablehead {
+            font-weight: 600;
+        }
+
+        /* Customized Activity Guidance styles */
+        .activities {
+            padding: 20px;
+        }
+
+        .activity {
+            
+            font-weight: 600;
+            margin: 0.5rem 0;
+            padding: 0.5rem 0.75rem; /* Adjusted padding */
+            background-color: rgba(248, 69, 69, 0.1);
+            border-radius: 5px;
+            text-align: center;
+            display: inline-block; 
+        }
+        .container-div{
+         width: 80%;  
+         margin: 10px auto; 
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#">Anemia Check</a>
+        <span class="navbar-text" style="margin-left: 80%;"><a href="/userHome" class="login">Home</a></span>
+
+    </div>
+    <div class="container-div">
+    <div>
+        <h1 class="header">Comprehensive Blood Count (CBC) Report Analysis</h1>
+        <div class="qhead">
+            <h2 class="paragraphhead">Key Findings</h2>
+            <p class="paragraph">{{ data.summary }}</p>
+            <hr>
+            <h2 class="paragraphhead">Preventive Meaures</h2>
+            <p class="paragraph">{{ data.prevention }}</p>
+            <hr>
+            <h2 class="paragraphhead">Type of anemia and statistics</h2>
+            <p class="paragraph">{{ data.type_of_amemia }}</p>
+        </div>
+    </div>
+    
+    <div class="graph">
+        <h4 class="graphhead">Percentage plot</h4>
+        <canvas id="myChart"></canvas>
+    </div>
+    <hr>
+    <h3 class="paragraphhead">Dietary Recommendations</h3>
+    <h4 class="paragraphhead">Patients BMR : {{data.bmr}}</h4>
+    <div class="dietcards">
+        <div class="cards">
+            <h3>Breakfast</h3>
+            <p class="tablehead">{{ data.diet.breakfast }}</p>
+        </div>
+        <div class="cards">
+            <h3>Lunch</h3>
+            <p class="tablehead">{{ data.diet.lunch }}</p>
+        </div>
+        <div class="cards">
+            <h3>Dinner</h3>
+            <p class="tablehead">{{ data.diet.dinner }}</p>
+        </div>
+    </div>
+    <hr>
+    <div>
+        <h2 class="paragraphhead">Customized Activity Guidance to Boost Health and Well-Being in Anemic Individuals</h2>
+        <div class="activities">
+            <p class="activity">{{ data.daily_activity[0] }}</p>
+            <p class="activity">{{ data.daily_activity[1] }}</p>
+            <p class="activity">{{ data.daily_activity[2] }}</p>
+            <p class="activity">{{ data.daily_activity[3] }}</p>
+            <p class="activity">{{ data.daily_activity[4] }}</p>
+            <p class="activity">{{ data.daily_activity[5] }}</p>
+            <p class="activity">{{ data.daily_activity[6] }}</p>
+            <p class="activity">{{ data.daily_activity[7] }}</p>
+            <p class="activity">{{ data.daily_activity[8] }}</p>
+            <p class="activity">{{ data.daily_activity[9] }}</p>
+        </div>
+    </div>
+</div>
+    <script>
+      function Graph(data) {
+          graphData = JSON.parse(data);
+          console.log(graphData.graphLab);
+          console.log("Data received:", graphData.graphVal); // Add this line
+          const graphDataSet = {
+              labels: graphData.graphLab,
+              datasets: [{
+                  label: 'Percentages',
+                  data: graphData.graphVal,
+                  backgroundColor: 'rgba(244, 32, 43, 0.8)',
+                  borderColor: 'rgba(244, 32, 43, 0.8)',
+                  borderWidth: 1
+              }]
+          };
+
+          const config = {
+              type: 'bar',
+              orientation: 'h',
+              data: graphDataSet,
+              options: {
+                  indexAxis: 'y',
+                  scales: {
+                      x: {
+                          ticks: {
+                              font: {
+                                  size: 15,
+                                  family: 'Arial',
+                              },
+                              color: 'black'
+                          }
+                      },
+                      y: {
+                          ticks: {
+                              font: {
+                                  size: 15,
+                                  family: 'Arial',
+                              },
+                              color: 'black'
+                          }
+                      }
+                  },
+                  plugins: {
+                      legend: {
+                          labels: {
+                              font: {
+                                  size: 15
+                              }
+                          }
+                      }
+                  }
+              }
+          };
+
+          const ctx = document.getElementById('myChart').getContext('2d');
+          new Chart(ctx, config);
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+          Graph('{{ graphData | tojson | safe }}');
+      });
+  </script>   
+</body>
+</html>

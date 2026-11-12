@@ -1,0 +1,20 @@
+.table{
+    width: 100%;
+    border-color: #203354;
+    margin-top: 10px;
+
+}
+table,th,td{
+    border-bottom: 1px solid;
+    border-collapse: collapse;
+}
+th{
+    padding: 10px;
+}
+td{
+    padding: 10px;
+    text-align: center;
+}
+#table_title{
+    margin-left: 28%;
+}

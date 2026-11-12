@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,600;1,200;1,400;1,600&display=swap"
+      rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-XdXwGw9P3JI6x63wxyzz0FknzrW59Y3rJ08tiIJH5Fg11P5qI3goOih3C/xup6P1W3sQ7wn5xrJxzDASjvAqeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="static/home.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+
+</head>
+<body>
+    <div>
+        <h1 class="header">Comprehensive Blood Count (CBC) Report Analysis</h1>
+        <div class="qhead">
+            <h2 class="paragraphhead">Key Findings</h2>
+            <p class="paragraph">{{ data.summary }}</p>
+            <hr>
+            <h2 class="paragraphhead">Type of anemia and statistics</h2>
+            <p class="paragraph">{{ data.type_of_amemia }}</p>
+        </div>
+    </div>
+    
+    <div class="graph">
+        <h4 class="graphhead">Percentage plot</h4>
+        <canvas id="myChart"></canvas>
+    </div>
+    <hr>
+    <h3 class="paragraphhead">Dietary Recommendations</h3>
+    <div class="dietcards">
+        <div class="cards">
+            <h3>Breakfast</h3>
+
+            <p class="tablehead">{{ data.diet.breakfast }}</p>
+        </div>
+        <div class="cards">
+            <h3>Lunch</h3>
+            <p class="tablehead">{{ data.diet.lunch }}</p>
+        </div>
+        <div class="cards">
+            <h3>Dinner</h3>
+            <p class="tablehead">{{ data.diet.dinner }}</p>
+        </div>
+    </div>
+    <hr>
+    <div>
+        <h2 class="paragraphhead">Customized Activity Guidance to Boost Health and Well-Being in Anemic Individuals</h2>
+        <p></p>
+        <div class="activities">
+            <p class="activity">{{ data.daily_activity[0] }}</p>
+            <p class="activity">{{ data.daily_activity[1] }}</p>
+            <p class="activity">{{ data.daily_activity[2] }}</p>
+            <p class="activity">{{ data.daily_activity[3] }}</p>
+            <p class="activity">{{ data.daily_activity[4] }}</p>
+            <p class="activity">{{ data.daily_activity[5] }}</p>
+            <p class="activity">{{ data.daily_activity[6] }}</p>
+            <p class="activity">{{ data.daily_activity[7] }}</p>
+            <p class="activity">{{ data.daily_activity[8] }}</p>
+            <p class="activity">{{ data.daily_activity[9] }}</p>
+            
+        </div>
+    </div>
+    <script>
+      function Graph(data) {
+          graphData = JSON.parse(data);
+          console.log(graphData.graphLab);
+          console.log("Data received:", graphData.graphVal); // Add this line
+          const graphDataSet = {
+              labels: graphData.graphLab,
+              datasets: [{
+                  label: 'Percentages',
+                  data: graphData.graphVal,
+                  backgroundColor: 'rgba(244, 32, 43, 0.8)',
+                  borderColor: 'rgba(244, 32, 43, 0.8)',
+                  borderWidth: 1
+              }]
+          };
+
+          const config = {
+              type: 'bar',
+              orientation: 'h',
+              data: graphDataSet,
+              options: {
+                  indexAxis: 'y',
+                  scales: {
+                      x: {
+                          ticks: {
+                              font: {
+                                  size: 15,
+                                  family: 'Arial',
+                              },
+                              color: 'black'
+                          }
+                      },
+                      y: {
+                          ticks: {
+                              font: {
+                                  size: 15,
+                                  family: 'Arial',
+                              },
+                              color: 'black'
+                          }
+                      }
+                  },
+                  plugins: {
+                      legend: {
+                          labels: {
+                              font: {
+                                  size: 15
+                              }
+                          }
+                      }
+                  }
+              }
+          };
+
+          const ctx = document.getElementById('myChart').getContext('2d');
+          new Chart(ctx, config);
+      }
+
+
+      document.addEventListener('DOMContentLoaded', function() {
+          Graph('{{ graphData | tojson | safe }}');
+      });
+  </script>   
+</body>
+</html>

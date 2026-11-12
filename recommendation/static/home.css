@@ -1,0 +1,105 @@
+body {
+  background-color: #fff;
+  font-family: "Poppins", sans-serif;
+  padding: 20px;
+  margin:10px;
+}
+hr {
+  border: 0;
+  height: 2px;
+  background: rgba(108, 27, 26, 0.918); /* Change the color as needed */
+  /* Adjust the margin as needed */
+}
+
+
+.header {
+  color: rgba(141, 35, 33, 0.918);
+  font-weight: 00;
+  font-size: 50px;
+  padding: 0;
+  /*font-family: sans-serif;*/
+}
+
+.paragraphhead {
+  color: rgb(125, 7, 7);
+  font-family: sans-serif;
+  font-size: 20px;
+}
+
+.paragraph {
+  color: rgb(51, 49, 49);
+  font-family: sans-serif;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.graphhead {
+  padding-top: 20px;
+  font-weight: 20px;
+  font-size: 20px;
+  padding: 0%;
+  
+}
+
+canvas {
+  width: 600px;
+  height: 500px;
+}
+
+.dietcards {
+  display: flex;
+}
+
+.cards {
+  
+  background-color: rgb(255, 255, 255);
+  box-shadow: 7px 7px 13px 0px rgba(50, 50, 50, 0.22);
+  /*margin-left: 10px;
+  margin-right: 10px;*/
+  float: left;
+  width: 33.33%;
+  text-align: center; /* Center text */
+  border-radius: 10px;
+  padding: 10px;
+  display: flex; /* Align items horizontally */
+  flex-direction: column; /* Stack items vertically */
+  padding: 30px;
+  margin: 20px;
+  width: 400px;
+  transition: all 0.3s ease-out;
+}
+.card:hover {
+  transform: translateY(-5px);
+  cursor: pointer;
+}
+.cards h3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  margin-bottom: 10px; /* Add space below the heading */
+}
+
+.cards h3 i {
+  height: 30px;
+  width: 30px;
+  margin-right: 5px;
+  color: black; /* Add space between the icon and text */
+}
+
+img {
+  width: 100%; /* Make image fill the container */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 10px; /* Ensure image fits container's rounded corners */
+}
+
+.activity {
+  font-family: sans-serif;
+  margin: 0.5rem 0;
+  padding: 0.5rem 0.75rem; /* Adjusted padding */
+  background-color: rgba(248, 69, 69, 0.1);
+  border-radius: 5px;
+  text-align: center;
+  display: inline-block; /* Ensure elements are displayed inline */
+}
+

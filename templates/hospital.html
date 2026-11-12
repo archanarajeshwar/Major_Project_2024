@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nearest Hospital Search</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Add your custom CSS styles here */
+        body {
+            background-color: #f8f9fa;
+        }
+
+        #hospital-data {
+            margin-top: 30px;
+        }
+
+        .hospital-card {
+            margin-bottom: 20px;
+        }
+
+        .navbar {
+            background-color: #c0392b;
+            color: #fff;
+            padding-bottom: 30px;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .navbar-brand:hover {
+            color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #c0392b;
+            border-color: #c0392b;
+        }
+
+        .btn-primary:hover {
+            background-color: #a93226;
+            border-color: #a93226;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-dark">
+        <nav class="navbar navbar-expand-md navigation-clean-search">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">Anemia Check</a>
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    <form class="form-inline mr-auto" target="_self">
+                    </form>
+                </form><span class="btn btn-light action-button" style="margin-left: 80%;"><a href="/userHome" class="login">Home</a></span>
+
+                    <span class="btn btn-light action-button" ><a href="/profile" class="login" >User Profile</a></span>
+                    <a class="btn btn-light action-button" role="button" href="/logout">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h3>Visit Your Nearest Health Center for Blood Tests</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <button class="btn btn-primary" onclick="initMap()">Find Nearest Hospitals</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="hospital-data"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function initMap() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var lat = position.coords.latitude;
+                    var lng = position.coords.longitude;
+
+                    fetch('/hospitals', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ latitude: lat, longitude: lng })
+                    })
+                        .then(response => response.json())
+                        .then(hospitals => {
+                            var hospitalDiv = document.getElementById('hospital-data');
+                            hospitalDiv.innerHTML = '';
+
+                            hospitals.forEach(hospital => {
+                                var hospitalCard = document.createElement('div');
+                                hospitalCard.classList.add('card', 'hospital-card');
+                                hospitalCard.innerHTML = `
+                                    <div class="card-body">
+                                        <h5 class="card-title">${hospital.name}</h5>
+                                        <p class="card-text"><strong>Address:</strong> ${hospital.address}</p>
+                                        <p class="card-text"><strong>Days Open:</strong> ${hospital.days_open.join(', ')}</p>
+                                        <p class="card-text"><strong>Open Time:</strong> ${hospital.open_time}</p>
+                                        <p class="card-text"><strong>Contact:</strong> ${hospital.contact}</p>
+                                        <p class="card-text"><strong>Disease Treatment Type:</strong> ${hospital.disease_treatment_type}</p>
+                                        <p class="card-text"><strong>Rating:</strong> ${hospital.rating}</p>
+                                        <p class="card-text"><strong>Reviews:</strong> ${hospital.reviews}</p>
+                                        <img src="${hospital.image}" class="img-fluid" alt="Hospital Thumbnail">
+                                        
+                                    </div>
+                                `;
+                                hospitalDiv.appendChild(hospitalCard);
+                            });
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
+            } else {
+                alert('Geolocation is not supported by this browser.');
+            }
+        }
+    </script>
+</body>
+
+</html>

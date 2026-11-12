@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="/static/newuserhome.css">
+    <link rel="stylesheet" href="/static/newsignin.css"> -->
+
+    <!-- Custom Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* CSS for User Login Page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f1;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: #b81d24;
+            /* Red */
+        }
+
+        .navbar-dark {
+            background-color: #b81d24 !important;
+            /* Darker Red */
+        }
+
+        h1,
+        p {
+            color: #7a0401;
+        }
+
+
+
+        .register-photo {
+            padding: 50px 0;
+            /* Add padding to the top and bottom */
+        }
+
+        .register-photo .form-container {
+            max-width: 400px;
+            /* Limit form container width */
+            margin: 0 auto;
+            /* Center the form container */
+        }
+
+        .register-photo h2 {
+            margin-bottom: 30px;
+            /* Add space below the heading */
+            color: #c0392b;
+            /* Anemia color palette for heading */
+        }
+
+        .register-photo .form-group {
+            margin-bottom: 20px;
+            /* Add space below each form group */
+        }
+
+        .register-photo .btn-primary {
+            background-color: #c0392b;
+            /* Anemia color palette for primary button */
+            border-color: #c0392b;
+            /* Anemia color palette for border color */
+        }
+
+        .register-photo .btn-primary:hover {
+            background-color: #c82333;
+            /* Darker shade of red on hover */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header-dark">
+        <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
+            <div class="container">
+                <a class="navbar-brand" href="/templates/index.html">Anemia Check </a>
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span
+                        class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    <form class="form-inline mr-auto" target="_self"></form>
+
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Header -->
+
+    <!-- Login Form Section -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="register-photo">
+                            <div class="form-container">
+                                <div class="image-holder"></div>
+                                <form action="/api/validateLogin" method="post">
+                                    <h2 class="text-center"><strong>Log into</strong> your account.</h2>
+                                    <div class="form-group"><input class="form-control" type="email" name="inputEmail"
+                                            placeholder="Email"></div>
+                                    <div class="form-group"><input class="form-control" type="password"
+                                            name="inputPassword" placeholder="Password"></div>
+                                    <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Sign
+                                            In</button></div>
+                                    <a href="/signup" class="already" style="color: #7a0401;">New to our hospital? Signup here.</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- External Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
